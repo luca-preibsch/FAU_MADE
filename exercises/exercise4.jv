@@ -81,8 +81,8 @@ pipeline TemperaturesPipeline {
     }
 
     block BatteryTemperatureToFahrenheitTransformer oftype TableTransformer {
-        inputColumns: ['temperature'];
-        outputColumn: 'temperature';
+        inputColumns: ['battery_temperature'];
+        outputColumn: 'battery_temperature';
         use: CelsiusToFahrenheit;
     }
 

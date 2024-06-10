@@ -1,3 +1,5 @@
+import urllib.request
+
 import pandas as pd
 import sqlalchemy as sql
 
@@ -8,9 +10,22 @@ def drop_rows(df, mask):
     df.drop(df[mask].index, axis=0, inplace=True)
 
 
-def create_emissions_data(name, url, sql_engine):
+def extract(url):
+    return urllib.request.urlopen(url)
+
+
+def to_csv(data):
+    return pd.read_csv(data, sep=',')
+
+
+def load(data, db_name, sql_engine):
+    data.to_sql(db_name, sql_engine, if_exists='replace', index=False)
+
+
+def load_emissions_data(name, url, sql_engine):
     print('downloading emissions data')
-    emissions_sheet = pd.read_csv(url, sep=',')
+    data = extract(url)
+    emissions_sheet = to_csv(data)
 
     print('processing emissions data')
 
@@ -26,15 +41,17 @@ def create_emissions_data(name, url, sql_engine):
     drop_rows(emissions_sheet, unit_mask)
 
     # filter columns
-    emissions_sheet.drop(labels=['DATAFLOW', 'LAST UPDATE', 'freq', 'airpol', 'src_crf', 'unit', 'OBS_FLAG'], axis=1, inplace=True)
+    emissions_sheet.drop(labels=['DATAFLOW', 'LAST UPDATE', 'freq', 'airpol', 'src_crf', 'unit', 'OBS_FLAG'], axis=1,
+                         inplace=True)
 
     print('writing emissions data')
-    emissions_sheet.to_sql(name, sql_engine, if_exists='replace', index=False)
+    load(emissions_sheet, name, sql_engine)
 
 
-def create_energy_consumption_data(name, url, sql_engine):
+def load_energy_consumption_data(name, url, sql_engine):
     print('downloading energy consumption data')
-    energy_consumption_sheet = pd.read_csv(url, sep=',')
+    data = extract(url)
+    energy_consumption_sheet = to_csv(data)
 
     print('processing energy consumption data')
 
@@ -48,12 +65,13 @@ def create_energy_consumption_data(name, url, sql_engine):
     energy_consumption_sheet.drop(labels=['DATAFLOW', 'LAST UPDATE', 'freq', 'unit', 'OBS_FLAG'], axis=1, inplace=True)
 
     print('writing energy consumption data')
-    energy_consumption_sheet.to_sql(name, sql_engine, if_exists='replace', index=False)
+    load(energy_consumption_sheet, name, sql_engine)
 
 
-def create_energy_share_data(name, url, sql_engine):
+def load_energy_share_data(name, url, sql_engine):
     print('downloading energy share data')
-    energy_share_sheet = pd.read_csv(url, sep=',')
+    data = extract(url)
+    energy_share_sheet = to_csv(data)
 
     print('processing energy share data')
 
@@ -64,27 +82,32 @@ def create_energy_share_data(name, url, sql_engine):
     drop_rows(energy_share_sheet, nrg_bal_mask)
 
     # filter columns
-    energy_share_sheet.drop(labels=['DATAFLOW', 'LAST UPDATE', 'freq', 'nrg_bal', 'unit', 'OBS_FLAG'], axis=1, inplace=True)
+    energy_share_sheet.drop(labels=['DATAFLOW', 'LAST UPDATE', 'freq', 'nrg_bal', 'unit', 'OBS_FLAG'], axis=1,
+                            inplace=True)
 
     print('writing energy share data')
-    energy_share_sheet.to_sql(name, sql_engine, if_exists='replace', index=False)
+    load(energy_share_sheet, name, sql_engine)
 
 
-if __name__ == '__main__':
-    sql_engine = sql.create_engine(f'sqlite:///{destination_dir}/data.sqlite')
+def main(destination_path=f'{destination_dir}/data.sqlite'):
+    sql_engine = sql.create_engine(f'sqlite:///{destination_path}')
 
     print('running: data pipeline')
 
     # Datasource1: Net greenhouse gas emissions
     emissions_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/sdg_13_10/?format=SDMX-CSV&i'
-    create_emissions_data('emissions', emissions_url, sql_engine)
+    load_emissions_data('emissions', emissions_url, sql_engine)
 
     # Datasource2: Primary energy consumption
     energy_consumption_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/sdg_07_10/?format=SDMX-CSV&i'
-    create_energy_consumption_data('energy_consumption', energy_consumption_url, sql_engine)
+    load_energy_consumption_data('energy_consumption', energy_consumption_url, sql_engine)
 
     # Datasource3: Share of energy from renewable sources
     energy_share_url = 'https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/nrg_ind_ren/?format=SDMX-CSV&i'
-    create_energy_share_data('energy_share', energy_share_url, sql_engine)
+    load_energy_share_data('energy_share', energy_share_url, sql_engine)
 
     print('success: data pipeline')
+
+
+if __name__ == '__main__':
+    main()

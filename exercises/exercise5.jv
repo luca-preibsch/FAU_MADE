@@ -6,22 +6,6 @@ pipeline StopsPipeline {
         -> StopsTableInterpreter
         -> StopsLoader;
 
-    // block StopsExtractor oftype HttpExtractor {
-    //     url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
-    // }
-
-    // block ZipFileInterpreter oftype ArchiveInterpreter {
-    //     archiveType: "zip";
-    // }
-
-    // block StopsTxtFilePicker oftype FilePicker {
-    //     path: "/stops.txt";
-    // }
-
-    // block StopsGtfsRTInterpreter oftype GtfsRTInterpreter{
-    //     entity: "trip_update";
-    // }
-
     /* NOTE:
     For this task, we are expected to work with "domain-specific GTFS data", though:
     - There is only a GtfsRtInterpreter in the documentation

@@ -1,0 +1,86 @@
+pipeline StopsPipeline {
+    StopsGTFSExtractor
+        -> StopsTxtFilePicker
+        -> StopsTextFileInterpreter
+        -> StopsCSVInterpreter
+        -> StopsTableInterpreter
+        -> StopsLoader;
+
+    // block StopsExtractor oftype HttpExtractor {
+    //     url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
+    // }
+
+    // block ZipFileInterpreter oftype ArchiveInterpreter {
+    //     archiveType: "zip";
+    // }
+
+    // block StopsTxtFilePicker oftype FilePicker {
+    //     path: "/stops.txt";
+    // }
+
+    // block StopsGtfsRTInterpreter oftype GtfsRTInterpreter{
+    //     entity: "trip_update";
+    // }
+
+    /* NOTE:
+    For this task, we are expected to work with "domain-specific GTFS data", though:
+    - There is only a GtfsRtInterpreter in the documentation
+    - I don't think we are expected to use the GtfsRtInterpreter, since the only example that covers it
+      uses vastly different data, which has special encoding
+    - There is no other block that mentions to work with GTFS data
+    - There only seems to be a composite block GTFSExtractor with no documentation,
+      except it beeing mentioned in the gtfs-static example:
+      https://jvalue.github.io/jayvee/docs/0.4.0/user/examples/gtfs-static
+
+    In my opinion, it is misleading to expect us to work with static (not realtime) GTFS data, but not
+    mentioning the GTFSExtractor anywhere in the documentation, but to supply a GTFS realtime interpreter.
+    I really don't get what is GTFS specific about this task, in the end it is just like exercise 4.
+    Extract a zip and pull a CSV file out of it.
+    */
+
+    block StopsGTFSExtractor oftype GTFSExtractor {
+        url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
+    }
+
+    block StopsTxtFilePicker oftype FilePicker {
+        path: "/stops.txt";
+    }
+
+    block StopsTextFileInterpreter oftype TextFileInterpreter {}
+
+    block StopsCSVInterpreter oftype CSVInterpreter {
+        delimiter: ",";
+        enclosing: '"';
+    }
+
+    block StopsTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "stop_id" oftype integer,
+            "stop_name" oftype text,    // must maintain german umlauts
+            "stop_lat" oftype GeoCoordinate,
+            "stop_lon" oftype GeoCoordinate,
+            "zone_id" oftype Zone1645
+        ];
+    }
+
+    valuetype GeoCoordinate oftype decimal {
+        constraints: [GeoCoordinateConstraint];
+    }
+
+    constraint GeoCoordinateConstraint on decimal:
+        value >= -90 and value <= 90;
+
+    valuetype Zone1645 oftype integer {
+        constraints: [Zone1645Constraint];
+    }
+
+    constraint Zone1645Constraint on integer:
+        value == 1645;
+
+    block StopsLoader oftype SQLiteLoader {
+        table: "stops";
+        file: "gtfs.sqlite";
+        dropTable: true;
+    }
+}

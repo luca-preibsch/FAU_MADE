@@ -1,0 +1,153 @@
+\documentclass{article}
+    % General document formatting
+    \usepackage[margin=0.7in]{geometry}
+    \usepackage[parfill]{parskip}
+    \usepackage[utf8]{inputenc}
+
+    \usepackage[colorlinks]{hyperref}
+    \usepackage{caption}
+    \usepackage{subcaption}
+    \usepackage{array}
+    \usepackage{amsmath}
+    \usepackage{cleveref}
+
+\begin{document}
+
+\title{Final Report on the Topic of Climate Change
+for the Cource Methods of Advanced Data Engineering at FAU}
+\author{Luca Preibsch}
+\date{\today}
+
+% \begin{center}
+% Luca Preibsch - \today
+% \end{center}
+
+\maketitle
+\section*{Introduction}
+
+Climate change is a huge challenge worldide and has gained more attention in recent.
+The global cause to stop climate change or at least slow it down often focusses on global warming, like the
+\href{https://unfccc.int/process-and-meetings/the-paris-agreement}{paris climate agreement},
+which legally binds the 196 parties "to limit the temperatute increase to 1.5°C above pre-industrial levels".
+
+Among various other contributors to global warming, burning fossil fuels for energy consumption stands out as
+a primary factor to this day.
+When burning fossil fuels, substantial amounts of greenhouse gases are released into the atmosphere,
+which increase the so called greenhouse effect, in turn accelerating global warming and climate change.
+Facing the amount of greenhouse gases produced by the energy sector, many countries - including countries of
+the European Union (EU) - intensified their efforts to transition towards more sustainable energy sources.
+
+This report aims to explore the aforementioned relationship between energy consumption and net greenhouse gas
+emissions across countries of the EU, in order to show how they are interconnected.
+Furthermore this report is set to discover how this connection is influenced by the share of renewable energy sources
+in the energy pool of a country. This might help to indicate, how effective the adoption of renewable energy sources is
+in fighting climate change.
+
+The resulting core questions are:
+\begin{enumerate}
+    \item How does the amount of energy consumed influence the net greenhouse gas emissions of European countries?
+    \item And how is this influenced by the share of renewables in total energy?
+\end{enumerate}
+
+\section*{Used Data}
+This report uses a merged dataset produces by a data pipeline, derived from three data sources,
+all originating from \href{https://ec.europa.eu/eurostat}{Eurostat}.
+The resulting dataset provides a comprehensive view of net greenhouse gas emissions, primary energy consumption
+and the share of renewable energy sources across countries of the EU.
+
+\subsection*{Structure and Meaning of the Dataset}
+The dataset is structured as a SQLite database containing three tables, each covering one data source from Eurostat.
+Each table includes the following three columns:
+\begin{itemize}
+    \item \textbf{geo}: The \href{https://www.destatis.de/Europa/EN/Country/Country-Codes.html}{ALPHA-2 country codes} representing each EU country.
+    \item \textbf{year}: The year in which the data was recorded.
+    \item \textbf{value}: The observed value for the specific metric in each table.
+\end{itemize}
+
+\subsubsection*{Net Greenhouse Gas Emissions}
+This table contains the amount of greenhouse gases emitted per person in each country for the specified years.
+The emissions data is measured in tonnes per capita.
+An example of how the data is structured can be seen in table \ref{tab:emissions}.
+
+\subsubsection*{Primary Energy Consumption}
+This table shows the energy consumption per person in each country, measured in Tonnes of Oil Equivalent (TOE) per capita.
+An example of how the data is structured can be seen in table \ref{tab:consumption}.
+
+\subsubsection*{Share of Energy from Renewable Sources}
+This table covers the proportion of energy consumed, which originates from renewable sources as declared by the EU,
+highlighting the adoption of renewable energy sources in each country.
+The data is measured in percentage of the total consumed energy.
+An example of how the data is structured can be seen in table \ref{tab:share}.
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \begin{tabular}{c c c}
+            geo & year & value \\
+            \hline\hline
+            AT & 1990 & 8.9 \\
+            AT & 1991 & 8.4 \\
+            AT & 1992 & 8.7 \\
+            \dots & \dots & \dots
+        \end{tabular}
+        \caption{Net Greenhouse Gas Emissions}
+        \label{tab:emissions}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \begin{tabular}{c c c}
+            geo & year & value \\
+            \hline\hline
+            AT & 2000 & 3.43 \\
+            AT & 2001 & 3.62 \\
+            AT & 2002 & 3.62 \\
+            \dots & \dots & \dots
+        \end{tabular}
+        \caption{Primary Energy Consumption}
+        \label{tab:consumption}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \begin{tabular}{c c c}
+            geo & year & value \\
+            \hline\hline
+            AT & 2004 & 22.553 \\
+            AT & 2005 & 24.353 \\
+            AT & 2006 & 26.276 \\
+            \dots & \dots & \dots
+        \end{tabular}
+        \caption{Share of Renewable Sources}
+        \label{tab:share}
+    \end{subfigure}
+    \caption{Dataset Table Structure}
+    \label{fig:three_tables}
+\end{figure}
+
+\subsection*{Compliance with Data Licenses}
+All data used in this analysis is sourced from Eurostat and is subject to the
+\href{https://ec.europa.eu/eurostat/about-us/policies/copyright}{Eurostat copyright notice},
+which allows free re-use of data under obligations.
+
+In order to comply, this report attributes Eurostat as the source of all data.
+Furthermore, during the processing of the data sources by the pipeline, the source data was cleaned with certain
+rows and columns being removed for relevance and consistency.
+
+In detail the following modifications to the source data were performed:
+\begin{itemize}
+    \item Table Net Greenhouse Gas Emissions: all rows were removed, which did not cover the unit of measure "Total (Tonnes per capita)";
+    all rows that covered other source sectors than "Total (excluding memo items, including international aviation)" were removed.
+    \item Table Primary Energy Consumption: all rows were removed, that did not cover the unit of measure "Tonnes of oil equivalent (TOE) per capita".
+    \item Table Share of Energy from Renewable Sources: all rows were removed, that did not cover the topic "Renewable energy sources".
+    \item For all tables all columns except "geo", "TIME\_PERIOD" and "OBS\_VALUE" were removed.
+    \item For all tables, the headers for "TIME\_PERIOD" and "OBS\_VALUE" were renamed to "year" and "value" respectively.
+    \item For all tables, all rows were removed that did cover countries, which are not currently part of the \href{https://www.destatis.de/Europa/EN/Country/Country-Codes.html}{27 EU member states}.
+\end{itemize}
+
+\section*{Analysis}
+
+\section*{Conclusions}
+
+\end{document}

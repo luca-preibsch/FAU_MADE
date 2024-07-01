@@ -7,9 +7,9 @@ import sqlite3
 import project.data_pipeline as pipeline
 
 expected_db_structure = {
-    "emissions": ["geo", "TIME_PERIOD", "OBS_VALUE"],
-    "energy_consumption": ['geo', 'TIME_PERIOD', 'OBS_VALUE'],
-    "energy_share": ['geo', 'TIME_PERIOD', 'OBS_VALUE']
+    "emissions": ["geo", "year", "value"],
+    "energy_consumption": ['geo', 'year', 'value'],
+    "energy_share": ['geo', 'year', 'value']
 }
 tests_dir = "./project/tests"
 

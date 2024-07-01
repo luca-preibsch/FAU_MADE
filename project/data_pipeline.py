@@ -56,6 +56,10 @@ def drop_non_eu_countries(df):
     drop_rows(df, eu_mask)
 
 
+def rename_headers(df):
+    return df.rename(columns={'TIME_PERIOD': 'year', 'OBS_VALUE': 'value'}, inplace=True)
+
+
 def load_emissions_data(name, url, sql_engine):
     print('downloading emissions data')
     data = extract(url)
@@ -80,6 +84,8 @@ def load_emissions_data(name, url, sql_engine):
 
     drop_non_eu_countries(emissions_sheet)
 
+    rename_headers(emissions_sheet)
+
     print('writing emissions data')
     load(emissions_sheet, name, sql_engine)
 
@@ -101,6 +107,8 @@ def load_energy_consumption_data(name, url, sql_engine):
     energy_consumption_sheet.drop(labels=['DATAFLOW', 'LAST UPDATE', 'freq', 'unit', 'OBS_FLAG'], axis=1, inplace=True)
 
     drop_non_eu_countries(energy_consumption_sheet)
+
+    rename_headers(energy_consumption_sheet)
 
     print('writing energy consumption data')
     load(energy_consumption_sheet, name, sql_engine)
@@ -124,6 +132,8 @@ def load_energy_share_data(name, url, sql_engine):
                             inplace=True)
 
     drop_non_eu_countries(energy_share_sheet)
+
+    rename_headers(energy_share_sheet)
 
     print('writing energy share data')
     load(energy_share_sheet, name, sql_engine)

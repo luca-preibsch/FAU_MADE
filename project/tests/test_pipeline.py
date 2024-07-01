@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import pytest
 from pandas.testing import assert_frame_equal
+import sqlite3
 
 import project.data_pipeline as pipeline
 
@@ -37,6 +38,7 @@ def test_pipeline(test_db_path):
 
     _test_pipeline_file_exists(test_db_path)
     _test_pipeline_tables_exist(test_db_path)
+    _test_pipeline_all_eu_countries(test_db_path)
 
 
 def _test_pipeline_file_exists(file_path):
@@ -44,8 +46,6 @@ def _test_pipeline_file_exists(file_path):
 
 
 def _test_pipeline_tables_exist(file_path):
-    import sqlite3
-
     conn = sqlite3.connect(file_path)
     cursor = conn.cursor()
 
@@ -58,6 +58,25 @@ def _test_pipeline_tables_exist(file_path):
         columns = [info[1] for info in cursor.fetchall()]
         for expected_column in expected_columns:
             assert expected_column in columns, f"Column {expected_column} does not exist in table {expected_table}."
+
+    conn.close()
+
+
+def _test_pipeline_all_eu_countries(file_path):
+    conn = sqlite3.connect(file_path)
+    cursor = conn.cursor()
+
+    def get_country_codes_from_db(table_name):
+        cursor.execute(f"SELECT DISTINCT geo FROM {table_name}")
+        rows = cursor.fetchall()
+
+        country_codes = {row[0] for row in rows}
+        return country_codes
+
+    for table in expected_db_structure.keys():
+        db_country_codes = get_country_codes_from_db(table)
+        assert db_country_codes == set(pipeline.country_codes.keys()), \
+            f"Expected: {set(pipeline.country_codes.keys())}, but got: {db_country_codes}"
 
     conn.close()
 

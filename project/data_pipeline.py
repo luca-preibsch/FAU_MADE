@@ -4,6 +4,35 @@ import pandas as pd
 import sqlalchemy as sql
 
 destination_dir = 'data'
+country_codes = {
+    'AT': 'Austria',
+    'BE': 'Belgium',
+    'BG': 'Bulgaria',
+    'HR': 'Croatia',
+    'CY': 'Cyprus',
+    'CZ': 'Czechia',
+    'DK': 'Denmark',
+    'EE': 'Estonia',
+    'FI': 'Finland',
+    'FR': 'France',
+    'DE': 'Germany',
+    'EL': 'Greece',  # (Eurostat: EL)
+    'HU': 'Hungary',
+    'IE': 'Ireland',
+    'IT': 'Italy',
+    'LV': 'Latvia',
+    'LT': 'Lithuania',
+    'LU': 'Luxembourg',
+    'MT': 'Malta',
+    'NL': 'Netherlands',
+    'PL': 'Poland',
+    'PT': 'Portugal',
+    'RO': 'Romania',
+    'SK': 'Slovakia',
+    'SI': 'Slovenia',
+    'ES': 'Spain',
+    'SE': 'Sweden',
+}
 
 
 def drop_rows(df, mask):
@@ -20,6 +49,11 @@ def to_csv(data):
 
 def load(data, db_name, sql_engine):
     data.to_sql(db_name, sql_engine, if_exists='replace', index=False)
+
+
+def drop_non_eu_countries(df):
+    eu_mask = ~df['geo'].isin(country_codes.keys())
+    drop_rows(df, eu_mask)
 
 
 def load_emissions_data(name, url, sql_engine):
@@ -44,6 +78,8 @@ def load_emissions_data(name, url, sql_engine):
     emissions_sheet.drop(labels=['DATAFLOW', 'LAST UPDATE', 'freq', 'airpol', 'src_crf', 'unit', 'OBS_FLAG'], axis=1,
                          inplace=True)
 
+    drop_non_eu_countries(emissions_sheet)
+
     print('writing emissions data')
     load(emissions_sheet, name, sql_engine)
 
@@ -63,6 +99,8 @@ def load_energy_consumption_data(name, url, sql_engine):
 
     # filter columns
     energy_consumption_sheet.drop(labels=['DATAFLOW', 'LAST UPDATE', 'freq', 'unit', 'OBS_FLAG'], axis=1, inplace=True)
+
+    drop_non_eu_countries(energy_consumption_sheet)
 
     print('writing energy consumption data')
     load(energy_consumption_sheet, name, sql_engine)
@@ -84,6 +122,8 @@ def load_energy_share_data(name, url, sql_engine):
     # filter columns
     energy_share_sheet.drop(labels=['DATAFLOW', 'LAST UPDATE', 'freq', 'nrg_bal', 'unit', 'OBS_FLAG'], axis=1,
                             inplace=True)
+
+    drop_non_eu_countries(energy_share_sheet)
 
     print('writing energy share data')
     load(energy_share_sheet, name, sql_engine)

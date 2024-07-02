@@ -125,7 +125,6 @@ An example of how the data is structured can be seen in table \ref{tab:share}.
         \label{tab:share}
     \end{subfigure}
     \caption{Dataset Table Structure}
-    \label{fig:three_tables}
 \end{figure}
 
 \subsection*{Compliance with Data Licenses}
@@ -151,43 +150,57 @@ In detail the following modifications to the source data were performed:
 \section*{Analysis of the Data}
 % Zwar sind in verschiedenen Tabellen unterschiedlich viele Daten zu unterschiedlich vielen Jahren, aber ist nicht relevant,
 % denn überflüssige Jahre werden durch Merge eliminiert
-\subsection*{Global Correlation between Energy Consumption and Emissions}
+\subsection*{Correlation between Energy Consumption and Emissions}
 \subsubsection*{Method Used}
 In order to answer the first question considering the correlation between emissions and energy consumption, the data first had to be prepared:
-The data on emissions and energy consumption was extracted from the SQLite database and the datasets were merged on
+The data on emissions, energy consumption and the share of renewables was extracted from the SQLite database and the datasets were merged on
 country codes and years to create a unified dataset for analysis.
 The approach then was to create a scatter plot for visualizing the relationship between energy consumption and the
 greenhouse gas emissions. The plot includes data points for all countries and all years in order to give an overview
-over the EU as a whole.
+over the EU as a whole. The single dots are colored appropriate to a scale.
+This scale was then included in the plot in the form of a colorbar as a legend.
 In order to make the plot more readable, linear regression was used to create a linear function describing the data.
 Also, to assess the strength of the two datasets correlation, the pearson correlation coefficient ($r$) was calculated.
 
+Since the global plot shadows differences between countries, also plots for all single countries were created in order to get
+insights into the workings of the relationship on a national level.
+
 \subsubsection*{Results}
-The resulting plot can be seen in \cref{plt:global_consumption_vs_emissions}
+The resulting global plot can be seen in \cref{plt:global_consumption_vs_emissions}
 The scatter plot backed by the regression line point to a positive correlation between energy consumption and greenhouse gas emissions.
 Furthermore, the $r$-value is calculated to be .64, indicating a moderate to strong positive correlation.
 
+Since the 27 single output plots would't fit the report, two example plots were chosen to highlight the differences, which can be observed between countries.
+One example is Luxembourg (\cref{plt:LU_consumption_vs_emissions}) with a very strong correlation coefficient of $r=1$, another example is Austria
+(\cref{plt:AT_consumption_vs_emissions}) with a mediocre $r=.56$. Another third example is
+Slovenia, for which no positive correlation could be found with $r=-.46$.
+Slovenia is an rare exception, since it is the only country with no positive correlation.
+All in all, the median $r$-value over all countries is .86, which is even much higher than the correlation coefficient for the EU as a whole.
+
 \begin{figure}
     \centering
-    \resizebox{\textwidth}{!}{\input{plot_global_data_with_renewables.pgf}}
+    \resizebox{.7\textwidth}{!}{\input{plot_global_data_with_renewables.pgf}}
     \caption{Global Correlation between Energy Consumption and Greenhouse Gas Emissions}
     \label{plt:global_consumption_vs_emissions}
 \end{figure}
 
-\subsection*{National Correlation between Energy Consumption and Emissions}
-Since the global plot shadows differences between single countries, also plots for all single countries were created in order to get
-insights into the workings of the relationship on a national level.
-
-\subsubsection*{Method Used}
-The method used was very similiar to how the plot for the whole EU was created, the plots also include a regression line and the $r$-value
-was calculated.
-Furthermore, this time all three tables were merged to allow a view on the share of renewables at different data points.
-The third dimension of the share of renewables is visualized by coloring the dots in the plot appropriate to a scale.
-This scale was then included in the plot in the form of a colorbar as a legend.
-
-\subsubsection*{Results}
-Since the 27 output graphs would't fit the report, three example plots were chosen to highlight the differences, which can be observed between countries.
-One example with a negative correlation
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{\input{plot_country_data_with_renewables_LU.pgf}}
+        \caption{Luxembourg}
+        \label{plt:LU_consumption_vs_emissions}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \resizebox{\textwidth}{!}{\input{plot_country_data_with_renewables_AT.pgf}}
+        \caption{Austria}
+        \label{plt:AT_consumption_vs_emissions}
+    \end{subfigure}
+    \caption{National Correlation between Energy Consumption and Greenhouse Gas Emissions}
+\end{figure}
 
 \subsection*{Interpretation of the Findings}
 The findings align with the understanding, that ...

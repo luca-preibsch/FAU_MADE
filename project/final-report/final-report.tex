@@ -20,13 +20,13 @@ for the Cource Methods of Advanced Data Engineering at FAU}
 \author{Luca Preibsch}
 \date{\today}
 
-% \begin{center}
-% Luca Preibsch - \today
-% \end{center}
+\begin{center}
+Final Report - Luca Preibsch - \today
+\end{center}
 
-\maketitle
+% \maketitle
+
 \section*{Introduction}
-
 Climate change is a huge challenge worldide and has gained more attention in recent.
 The global cause to stop climate change or at least slow it down often focusses on global warming, like the
 \href{https://unfccc.int/process-and-meetings/the-paris-agreement}{paris climate agreement},
@@ -66,66 +66,66 @@ Each table includes the following three columns:
     \item \textbf{value}: The observed value for the specific metric in each table.
 \end{itemize}
 
-\subsubsection*{Net Greenhouse Gas Emissions}
+\textbf{Net Greenhouse Gas Emissions}:
 This table contains the amount of greenhouse gases emitted per person in each country for the specified years.
 The emissions data is measured in tonnes per capita.
-An example of how the data is structured can be seen in table \ref{tab:emissions}.
+% An example of how the data is structured can be seen in table \ref{tab:emissions}.
 
-\subsubsection*{Primary Energy Consumption}
+\textbf{Primary Energy Consumption}:
 This table shows the energy consumption per person in each country, measured in Tonnes of Oil Equivalent (TOE) per capita.
-An example of how the data is structured can be seen in table \ref{tab:consumption}.
+% An example of how the data is structured can be seen in table \ref{tab:consumption}.
 
-\subsubsection*{Share of Energy from Renewable Sources}
+\textbf{Share of Energy from Renewable Sources}:
 This table covers the proportion of energy consumed, which originates from renewable sources as declared by the EU,
 highlighting the adoption of renewable energy sources in each country.
 The data is measured in percentage of the total consumed energy.
-An example of how the data is structured can be seen in table \ref{tab:share}.
+% An example of how the data is structured can be seen in table \ref{tab:share}.
 
-\begin{figure}[h!]
-    \centering
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \begin{tabular}{c c c}
-            geo & year & value \\
-            \hline\hline
-            AT & 1990 & 8.9 \\
-            AT & 1991 & 8.4 \\
-            AT & 1992 & 8.7 \\
-            \dots & \dots & \dots
-        \end{tabular}
-        \caption{Net Greenhouse Gas Emissions}
-        \label{tab:emissions}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \begin{tabular}{c c c}
-            geo & year & value \\
-            \hline\hline
-            AT & 2000 & 3.43 \\
-            AT & 2001 & 3.62 \\
-            AT & 2002 & 3.62 \\
-            \dots & \dots & \dots
-        \end{tabular}
-        \caption{Primary Energy Consumption}
-        \label{tab:consumption}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.3\textwidth}
-        \centering
-        \begin{tabular}{c c c}
-            geo & year & value \\
-            \hline\hline
-            AT & 2004 & 22.553 \\
-            AT & 2005 & 24.353 \\
-            AT & 2006 & 26.276 \\
-            \dots & \dots & \dots
-        \end{tabular}
-        \caption{Share of Renewable Sources}
-        \label{tab:share}
-    \end{subfigure}
-    \caption{Dataset Table Structure}
-\end{figure}
+% \begin{figure}[h!]
+%     \centering
+%     \begin{subfigure}[b]{0.3\textwidth}
+%         \centering
+%         \begin{tabular}{c c c}
+%             geo & year & value \\
+%             \hline\hline
+%             AT & 1990 & 8.9 \\
+%             AT & 1991 & 8.4 \\
+%             AT & 1992 & 8.7 \\
+%             \dots & \dots & \dots
+%         \end{tabular}
+%         \caption{Net Greenhouse Gas Emissions}
+%         \label{tab:emissions}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}[b]{0.3\textwidth}
+%         \centering
+%         \begin{tabular}{c c c}
+%             geo & year & value \\
+%             \hline\hline
+%             AT & 2000 & 3.43 \\
+%             AT & 2001 & 3.62 \\
+%             AT & 2002 & 3.62 \\
+%             \dots & \dots & \dots
+%         \end{tabular}
+%         \caption{Primary Energy Consumption}
+%         \label{tab:consumption}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}[b]{0.3\textwidth}
+%         \centering
+%         \begin{tabular}{c c c}
+%             geo & year & value \\
+%             \hline\hline
+%             AT & 2004 & 22.553 \\
+%             AT & 2005 & 24.353 \\
+%             AT & 2006 & 26.276 \\
+%             \dots & \dots & \dots
+%         \end{tabular}
+%         \caption{Share of Renewable Sources}
+%         \label{tab:share}
+%     \end{subfigure}
+%     \caption{Dataset Table Structure}
+% \end{figure}
 
 \subsection*{Compliance with Data Licenses}
 All data used in this analysis is sourced from Eurostat and is subject to the
@@ -148,8 +148,6 @@ In detail the following modifications to the source data were performed:
 \end{itemize}
 
 \section*{Analysis of the Data}
-% Zwar sind in verschiedenen Tabellen unterschiedlich viele Daten zu unterschiedlich vielen Jahren, aber ist nicht relevant,
-% denn überflüssige Jahre werden durch Merge eliminiert
 \subsection*{Correlation between Energy Consumption and Emissions}
 \subsubsection*{Method Used}
 In order to answer the first question considering the correlation between emissions and energy consumption, the data first had to be prepared:
@@ -160,26 +158,32 @@ greenhouse gas emissions. The plot includes data points for all countries and al
 over the EU as a whole. The single dots are colored appropriate to a scale.
 This scale was then included in the plot in the form of a colorbar as a legend.
 In order to make the plot more readable, linear regression was used to create a linear function describing the data.
-Also, to assess the strength of the two datasets correlation, the pearson correlation coefficient ($r$) was calculated.
+Also, to assess the strength of the two datasets correlation, the Pearson Correlation Coefficient (PCC, $r$-value) was calculated.
 
-Since the global plot shadows differences between countries, also plots for all single countries were created in order to get
+Since the global plot shadows differences between single countries, also plots for all countries were created in order to gain
 insights into the workings of the relationship on a national level.
 
 \subsubsection*{Results}
-The resulting global plot can be seen in \cref{plt:global_consumption_vs_emissions}
+The resulting global plot can be seen in \cref{plt:global_consumption_vs_emissions}.
 The scatter plot backed by the regression line point to a positive correlation between energy consumption and greenhouse gas emissions.
 Furthermore, the $r$-value is calculated to be .64, indicating a moderate to strong positive correlation.
 
-Since the 27 single output plots would't fit the report, two example plots were chosen to highlight the differences, which can be observed between countries.
-One example is Luxembourg (\cref{plt:LU_consumption_vs_emissions}) with a very strong correlation coefficient of $r=1$, another example is Austria
-(\cref{plt:AT_consumption_vs_emissions}) with a mediocre $r=.56$. Another third example is
-Slovenia, for which no positive correlation could be found with $r=-.46$.
-Slovenia is an rare exception, since it is the only country with no positive correlation.
-All in all, the median $r$-value over all countries is .86, which is even much higher than the correlation coefficient for the EU as a whole.
+Since the 27 individual country plots wouldn't fit the report, two example plots were chosen to highlight the differences between countries.
+Luxembourg (\cref{plt:LU_consumption_vs_emissions}) shows a very strong PCC of $r=1$, while Austria (\cref{plt:AT_consumption_vs_emissions})
+has a moderate correlation with an $r$-value of 0.56.
+
+It is evident that $r$-values vary significantly across different countries.
+Luxembourg represents a positive extreme, whereas Slovenia represents the opposite extreme,
+showing no positive correlation with an $r$-value of -0.46. Slovenia is a notable exception,
+as it is the only country with a negative correlation.
+
+Overall, the median $r$-value across all countries is 0.86, which is significantly higher than the PCC for the EU as a whole.
+This high median value indicates a very strong positive correlation in the median, suggesting that most individual countries exhibit a stronger
+relationship between energy consumption and greenhouse gas emissions than the aggregated EU data.
 
 \begin{figure}
     \centering
-    \resizebox{.7\textwidth}{!}{\input{plot_global_data_with_renewables.pgf}}
+    \resizebox{.6\textwidth}{!}{\input{plot_global_data_with_renewables.pgf}}
     \caption{Global Correlation between Energy Consumption and Greenhouse Gas Emissions}
     \label{plt:global_consumption_vs_emissions}
 \end{figure}
@@ -202,9 +206,76 @@ All in all, the median $r$-value over all countries is .86, which is even much h
     \caption{National Correlation between Energy Consumption and Greenhouse Gas Emissions}
 \end{figure}
 
-\subsection*{Interpretation of the Findings}
-The findings align with the understanding, that ...
+\subsubsection*{Interpretation of the Findings}
+The PCC of .64 for the whole EU indicates that higher energy consumption is generally associated with increased greenhouse gas emissions at the EU level.
+
+However, the analysis of individual countries presents a more nuanced picture. While Luxembourg demonstrates a perfect positive correlation,
+suggesting that its emissions are almost entirely driven by energy consumption, other countries like Austria show only a moderate correlation.
+Slovenia stands out as an exception with a negative correlation, indicating other factors significantly influencing its emissions beyond energy consumption.
+
+The median PCC across all countries is 0.86, higher than the EU-wide correlation. This disparity underscores the importance of considering national contexts
+and policies when analyzing environmental impacts.
+
+\subsection*{Correlation between Emissions and the Share of Renewables}
+Secondly the report analyzes the follow-up-question considering the correlation between the share of renewable energy sources and the greenhouse
+gas emissions.
+
+\subsubsection*{Method Used}
+Like with the first question, all datasets had to be extracted from the SQLite database and were merged on the country codes
+and years, resulting in a unified dataset for analysis.
+
+The method for answering the question is also strongly inflienced by the first question's method.
+A scatter plot to visualize the relationship between the share of renewable energy and greenhouse gas emissions was created.
+The plot includes data points for all years and countries of the EU. Each data point's color represents the level of energy consumption per capita,
+which is indicated by a color bar included as a legend in the plot.
+
+Also a trend line was generated for the plot using linear regression and the PCC was calculated for the EU as a whole.
+Furthermore, the PCC was calculated for all single countries in order to assess the median of the countries PCC, as it proved to be
+rather informative in analyzing the first question.
+
+\subsubsection*{Results}
+The resulting global plot in \cref{plt:global_share_vs_emissions} indicates a significant negative correlation between the share
+of renewable energy and greenhouse gas emissions. The $r$-value is calculated to be -.54, suggesting a moderate to strong
+negative correlation. This implies that a higher share of renewable energy is generally associated with lower greenhouse gas emissions across the EU.
+
+In regard to the median over all national countries, the correlation becomes even far stronger with a $r$-value of -.9.
+This high median value indicates that most individual countries exhibit a very strong negative correlation,
+suggesting that an increased share of renewable energy is generally associated with substantial reductions in greenhouse gas emissions.
+
+\begin{figure}
+    \centering
+    \resizebox{.6\textwidth}{!}{\input{plot_renewables_vs_emissions.pgf}}
+    \caption{Global Correlation between Share of Renewable Energy and Greenhouse Gas Emissions}
+    \label{plt:global_share_vs_emissions}
+\end{figure}
+
+\subsubsection*{Interpretation of the Findings}
+The analysis of the relationship between the share of renewable energy and greenhouse gas emissions indicates a significant negative correlation.
+This suggests that increasing the share of renewable energy in the energy mix is generally associated with a reduction in greenhouse gas
+emissions at the EU level.
+
+When examining individual countries, the median PCC is even stronger at -.9. This high median value implies that most countries experience
+substantial reductions in greenhouse gas emissions as they increase their share of renewable energy.
 
 \section*{Conclusions}
+\subsubsection*{How does the amount of energy consumed influence the net greenhouse gas emissions of European countries?}
+The analysis strongly indicates, that higher energy consumption leads to higher greenhouse gas emissions.
+To what extend this effect can be seen differs between countries, though overall the correlation is very strong.
+
+\subsubsection*{And how is this influenced by the share of renewables in total energy?}
+The significant negative correlation between share of renewable energy sources and emissions strongly indicates, that emissions are also strongly
+dependent on the burning fossil fuels.
+This suggests that most countries see substantial emission reductions as they increase their renewable energy share.
+
+\subsection*{Critical Reflection}
+The questions were answered effectively, showing that higher energy consumption tends to increase emissions,
+while a higher share of renewables tends to decrease emissions. However, limitations include:
+\begin{enumerate}
+    \item Data Accuracy: Results depend on the quality of the data used.
+    \item National Variations: Further research is needed to explore factors driving national differences.
+    \item Causality: The analysis shows correlation, not causation.
+    \item Temporal Dynamics: Aggregated data may hide trends over time.
+    \item External Influences: Factors like technological advances and global policies were not considered.
+\end{enumerate}
 
 \end{document}

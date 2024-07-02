@@ -168,12 +168,10 @@ The resulting global plot can be seen in \cref{plt:global_consumption_vs_emissio
 The scatter plot backed by the regression line point to a positive correlation between energy consumption and greenhouse gas emissions.
 Furthermore, the $r$-value is calculated to be .64, indicating a moderate to strong positive correlation.
 
-Since the 27 individual country plots wouldn't fit the report, two example plots were chosen to highlight the differences between countries.
-Luxembourg (\cref{plt:LU_consumption_vs_emissions}) shows a very strong PCC of $r=1$, while Austria (\cref{plt:AT_consumption_vs_emissions})
-has a moderate correlation with an $r$-value of 0.56.
+Although, when observing plots of single countries, huge differences of the analyzed correlations for different countries arise.
+Luxembourg shows a very strong PCC of $r=1$, while Austria has a moderate correlation with an $r$-value of 0.56.
 
-It is evident that $r$-values vary significantly across different countries.
-Luxembourg represents a positive extreme, whereas Slovenia represents the opposite extreme,
+Luxembourg represents a positive extreme, whereas another example, Slovenia represents the opposite extreme,
 showing no positive correlation with an $r$-value of -0.46. Slovenia is a notable exception,
 as it is the only country with a negative correlation.
 
@@ -183,28 +181,28 @@ relationship between energy consumption and greenhouse gas emissions than the ag
 
 \begin{figure}
     \centering
-    \resizebox{.6\textwidth}{!}{\input{plot_global_data_with_renewables.pgf}}
+    \resizebox{.7\textwidth}{!}{\input{plot_global_data_with_renewables.pgf}}
     \caption{Global Correlation between Energy Consumption and Greenhouse Gas Emissions}
     \label{plt:global_consumption_vs_emissions}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \resizebox{\textwidth}{!}{\input{plot_country_data_with_renewables_LU.pgf}}
-        \caption{Luxembourg}
-        \label{plt:LU_consumption_vs_emissions}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.49\textwidth}
-        \centering
-        \resizebox{\textwidth}{!}{\input{plot_country_data_with_renewables_AT.pgf}}
-        \caption{Austria}
-        \label{plt:AT_consumption_vs_emissions}
-    \end{subfigure}
-    \caption{National Correlation between Energy Consumption and Greenhouse Gas Emissions}
-\end{figure}
+% \begin{figure}
+%     \centering
+%     \begin{subfigure}[b]{0.49\textwidth}
+%         \centering
+%         \resizebox{\textwidth}{!}{\input{plot_country_data_with_renewables_LU.pgf}}
+%         \caption{Luxembourg}
+%         \label{plt:LU_consumption_vs_emissions}
+%     \end{subfigure}
+%     \hfill
+%     \begin{subfigure}[b]{0.49\textwidth}
+%         \centering
+%         \resizebox{\textwidth}{!}{\input{plot_country_data_with_renewables_AT.pgf}}
+%         \caption{Austria}
+%         \label{plt:AT_consumption_vs_emissions}
+%     \end{subfigure}
+%     \caption{National Correlation between Energy Consumption and Greenhouse Gas Emissions}
+% \end{figure}
 
 \subsubsection*{Interpretation of the Findings}
 The PCC of .64 for the whole EU indicates that higher energy consumption is generally associated with increased greenhouse gas emissions at the EU level.
@@ -244,7 +242,7 @@ suggesting that an increased share of renewable energy is generally associated w
 
 \begin{figure}
     \centering
-    \resizebox{.6\textwidth}{!}{\input{plot_renewables_vs_emissions.pgf}}
+    \resizebox{.7\textwidth}{!}{\input{plot_renewables_vs_emissions.pgf}}
     \caption{Global Correlation between Share of Renewable Energy and Greenhouse Gas Emissions}
     \label{plt:global_share_vs_emissions}
 \end{figure}

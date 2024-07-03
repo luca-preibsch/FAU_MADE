@@ -411,6 +411,7 @@ def plot_renewables_vs_emissions_for_all_countries():
     output_plot(plt, plot_renewables_vs_emissions_for_all_countries)
 
 
+# use arg 'save' to save the plots as .pgf files
 def main():
     # plot data sources
     # plot_net_greenhouse_gas_emissions()
@@ -420,19 +421,19 @@ def main():
     # plot correlations
     # plot_correlation_emissions_to_consumption() # trash
     # plot_correlation_emissions_to_consumption_single_country() # trash
-    plot_scatter_with_linear_reg()
-    plot_multi_country_regression()
-    plot_global_regression()
-    plot_country_data_with_renewables('LU')
-    # plot_country_data_with_renewables('SI')
-    plot_country_data_with_renewables('AT')
-    plot_global_data_with_renewables()
-    plot_renewables_vs_emissions()  # Reflektion? Grenze?
-    # plot_renewables_vs_emissions('SI')
-    # plot_renewables_vs_emissions('DE')
-    # plot_renewables_vs_emissions('LU')
-    # plot_renewables_vs_emissions('HU')
-    plot_renewables_vs_emissions_for_all_countries()
+
+    # plot_scatter_with_linear_reg()  # only Germany
+    # plot_global_regression()  # not as informative as the used plots
+
+    # plot_country_data_with_renewables('LU')   # Removed due to length limitations
+    # plot_country_data_with_renewables('SI')   # Removed due to length limitations
+    # plot_country_data_with_renewables('AT')   # Removed due to length limitations
+
+    # plot_multi_country_regression()  # great for an overview of all countries
+    # plot_renewables_vs_emissions_for_all_countries()  # great for an overview of all countries
+
+    plot_global_data_with_renewables()  # used
+    plot_renewables_vs_emissions()  # used
 
     # clean up
     db_conn.close()

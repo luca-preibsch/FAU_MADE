@@ -27,28 +27,28 @@ Final Report - Luca Preibsch - \today
 % \maketitle
 
 \section*{Introduction}
-Climate change is a huge challenge worldide and has gained more attention in recent.
-The global cause to stop climate change or at least slow it down often focusses on global warming, like the
-\href{https://unfccc.int/process-and-meetings/the-paris-agreement}{paris climate agreement},
-which legally binds the 196 parties "to limit the temperatute increase to 1.5°C above pre-industrial levels".
+Climate change is a huge challenge worldwide and has gained more attention in recent.
+The global cause to stop climate change or at least slow it down often focuses on global warming, like the
+\href{https://unfccc.int/process-and-meetings/the-paris-agreement}{Paris climate agreement},
+which legally binds the 196 parties “to limit the temperature increase to 1.5 °C above pre-industrial levels”.
 
 Among various other contributors to global warming, burning fossil fuels for energy consumption stands out as
 a primary factor to this day.
 When burning fossil fuels, substantial amounts of greenhouse gases are released into the atmosphere,
-which increase the so called greenhouse effect, in turn accelerating global warming and climate change.
-Facing the amount of greenhouse gases produced by the energy sector, many countries - including countries of
-the European Union (EU) - intensified their efforts to transition towards more sustainable energy sources.
+which increase the so-called greenhouse effect, in turn accelerating global warming and climate change.
+Facing the amount of greenhouse gases produced by the energy sector, many countries — including countries of
+the European Union (EU) — intensified their efforts to transition towards more sustainable energy sources.
 
 This report aims to explore the aforementioned relationship between energy consumption and net greenhouse gas
 emissions across countries of the EU, in order to show how they are interconnected.
-Furthermore this report is set to discover how this connection is influenced by the share of renewable energy sources
+Furthermore, this report is set to discover how this connection is influenced by the share of renewable energy sources
 in the energy pool of a country. This might help to indicate, how effective the adoption of renewable energy sources is
 in fighting climate change.
 
 The resulting core questions are:
 \begin{enumerate}
     \item How does the amount of energy consumed influence the net greenhouse gas emissions of European countries?
-    \item And how is this influenced by the share of renewables in total energy?
+    \item, And how is this influenced by the share of renewables in total energy?
 \end{enumerate}
 
 \section*{Used Data}
@@ -136,14 +136,14 @@ In order to comply, this report attributes Eurostat as the source of all data.
 Furthermore, during the processing of the data sources by the pipeline, the source data was cleaned with certain
 rows and columns being removed for relevance and consistency.
 
-In detail the following modifications to the source data were performed:
+In detail, the following modifications to the source data were performed:
 \begin{itemize}
-    \item Table Net Greenhouse Gas Emissions: all rows were removed, which did not cover the unit of measure "Total (Tonnes per capita)";
-    all rows that covered other source sectors than "Total (excluding memo items, including international aviation)" were removed.
-    \item Table Primary Energy Consumption: all rows were removed, that did not cover the unit of measure "Tonnes of oil equivalent (TOE) per capita".
-    \item Table Share of Energy from Renewable Sources: all rows were removed, that did not cover the topic "Renewable energy sources".
-    \item For all tables all columns except "geo", "TIME\_PERIOD" and "OBS\_VALUE" were removed.
-    \item For all tables, the headers for "TIME\_PERIOD" and "OBS\_VALUE" were renamed to "year" and "value" respectively.
+    \item Table Net Greenhouse Gas Emissions: all rows were removed, which did not cover the unit of measure “Total (Tonnes per capita)”;
+    all rows that covered other source sectors than “Total (excluding memo items, including international aviation)” were removed.
+    \item Table Primary Energy Consumption: all rows were removed, that did not cover the unit of measure “Tonnes of oil equivalent (TOE) per capita”.
+    \item Table Share of Energy from Renewable Sources: all rows were removed, that did not cover the topic “Renewable energy sources”.
+    \item For all tables all columns except “geo”, “TIME\_PERIOD” and “OBS\_VALUE” were removed.
+    \item For all tables, the headers for “TIME\_PERIOD” and “OBS\_VALUE” were renamed to “year” and “value” respectively.
     \item For all tables, all rows were removed that did cover countries, which are not currently part of the \href{https://www.destatis.de/Europa/EN/Country/Country-Codes.html}{27 EU member states}.
 \end{itemize}
 
@@ -156,7 +156,7 @@ country codes and years to create a unified dataset for analysis.
 The approach then was to create a scatter plot for visualizing the relationship between energy consumption and the
 greenhouse gas emissions. The plot includes data points for all countries and all years in order to give an overview
 over the EU as a whole. The single dots are colored appropriate to a scale.
-This scale was then included in the plot in the form of a colorbar as a legend.
+This scale was then included in the plot in the form of a color bar as a legend.
 In order to make the plot more readable, linear regression was used to create a linear function describing the data.
 Also, to assess the strength of the two datasets correlation, the Pearson Correlation Coefficient (PCC, $r$-value) was calculated.
 
@@ -169,9 +169,9 @@ The scatter plot backed by the regression line point to a positive correlation b
 Furthermore, the $r$-value is calculated to be .64, indicating a moderate to strong positive correlation.
 
 Although, when observing plots of single countries, huge differences of the analyzed correlations for different countries arise.
-Luxembourg shows a very strong PCC of $r=1$, while Austria has a moderate correlation with an $r$-value of 0.56.
+Luxembourg shows a very strong PCC of $r=1$, while Austria has a moderate correlation, with an $r$-value of 0.56.
 
-Luxembourg represents a positive extreme, whereas another example, Slovenia represents the opposite extreme,
+Luxembourg represents a positive extreme, whereas another example, Slovenia, represents the opposite extreme,
 showing no positive correlation with an $r$-value of -0.46. Slovenia is a notable exception,
 as it is the only country with a negative correlation.
 
@@ -222,12 +222,12 @@ gas emissions.
 Like with the first question, all datasets had to be extracted from the SQLite database and were merged on the country codes
 and years, resulting in a unified dataset for analysis.
 
-The method for answering the question is also strongly inflienced by the first question's method.
+The method for answering the question is also strongly influenced by the first question's method.
 A scatter plot to visualize the relationship between the share of renewable energy and greenhouse gas emissions was created.
 The plot includes data points for all years and countries of the EU. Each data point's color represents the level of energy consumption per capita,
 which is indicated by a color bar included as a legend in the plot.
 
-Also a trend line was generated for the plot using linear regression and the PCC was calculated for the EU as a whole.
+Also, a trend line was generated for the plot using linear regression and the PCC was calculated for the EU as a whole.
 Furthermore, the PCC was calculated for all single countries in order to assess the median of the countries PCC, as it proved to be
 rather informative in analyzing the first question.
 
@@ -236,9 +236,9 @@ The resulting global plot in \cref{plt:global_share_vs_emissions} indicates a si
 of renewable energy and greenhouse gas emissions. The $r$-value is calculated to be -.54, suggesting a moderate to strong
 negative correlation. This implies that a higher share of renewable energy is generally associated with lower greenhouse gas emissions across the EU.
 
-In regard to the median over all national countries, the correlation becomes even far stronger with a $r$-value of -.9.
+In regard to the median over all national countries, the correlation becomes even far stronger, with a $r$-value of -.9.
 This high median value indicates that most individual countries exhibit a very strong negative correlation,
-suggesting that an increased share of renewable energy is generally associated with substantial reductions in greenhouse gas emissions.
+suggesting that an increased share of renewable energy is typically associated with substantial reductions in greenhouse gas emissions.
 
 \begin{figure}
     \centering
@@ -258,11 +258,11 @@ substantial reductions in greenhouse gas emissions as they increase their share 
 \section*{Conclusions}
 \subsubsection*{How does the amount of energy consumed influence the net greenhouse gas emissions of European countries?}
 The analysis strongly indicates, that higher energy consumption leads to higher greenhouse gas emissions.
-To what extend this effect can be seen differs between countries, though overall the correlation is very strong.
+To what extent this effect can be seen differs between countries, though overall the correlation is very strong.
 
 \subsubsection*{And how is this influenced by the share of renewables in total energy?}
 The significant negative correlation between share of renewable energy sources and emissions strongly indicates, that emissions are also strongly
-dependent on the burning fossil fuels.
+dependent on the burning of fossil fuels.
 This suggests that most countries see substantial emission reductions as they increase their renewable energy share.
 
 \subsection*{Critical Reflection}

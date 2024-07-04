@@ -1,51 +1,42 @@
-# Exercise Badges
+# Energy consumption as driver of greenhouse gas emissions and the influence of renewables.
 
-![](https://byob.yarr.is/luca-preibsch/FAU_MADE/score_ex1) ![](https://byob.yarr.is/luca-preibsch/FAU_MADE/score_ex2) ![](https://byob.yarr.is/luca-preibsch/FAU_MADE/score_ex3) ![](https://byob.yarr.is/luca-preibsch/FAU_MADE/score_ex4) ![](https://byob.yarr.is/luca-preibsch/FAU_MADE/score_ex5)
+[![License](https://img.shields.io/badge/License-CC_BY_4.0-orange)](https://creativecommons.org/licenses/by/4.0/)
+[![example workflow](https://github.com/luca-preibsch/FAU_MADE/actions/workflows/tests.yml/badge.svg)](https://github.com/luca-preibsch/FAU_MADE/actions/workflows/tests.yml)
+[![python](https://img.shields.io/badge/Python-3.11-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org)
 
-# Methods of Advanced Data Engineering Template Project
-
-This template project provides some structure for your open data project in the MADE module at FAU.
-This repository contains (a) a data science project that is developed by the student over the course of the semester, and (b) the exercises that are submitted over the course of the semester.
-Before you begin, make sure you have [Python](https://www.python.org/) and [Jayvee](https://github.com/jvalue/jayvee) installed. We will work with [Jupyter notebooks](https://jupyter.org/). The easiest way to do so is to set up [VSCode](https://code.visualstudio.com/) with the [Jupyter extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter).
-
-To get started, please follow these steps:
-1. Create your own fork of this repository. Feel free to rename the repository right after creation, before you let the teaching instructors know your repository URL. **Do not rename the repository during the semester**.
-2. Setup the exercise feedback by changing the exercise badge sources in the `README.md` file following the patter `![](https://byob.yarr.is/<github-user-name>/<github-repo>/score_ex<exercise-number>)`. 
-For example, if your user is _myuser_ and your repo is _myrepo_, then update the badge for _exercise 1_ to `![](https://byob.yarr.is/myrepo/myuser/score_ex1)`. Proceed with the remaining badges accordingly.
+This repository contains a data engineering project originating from my participation in the course
+[Methods of Advanced Data Engineering](https://oss.cs.fau.de/teaching/specific/made/) at [FAU](https://www.fau.de/).
 
 
-## Project Work
-Your data engineering project will run alongside lectures during the semester. We will ask you to regularly submit project work as milestones so you can reasonably pace your work. All project work submissions **must** be placed in the `project` folder.
+## Introduction
+Climate change is a huge challenge worldwide and has gained more attention in recent.
+The global cause to stop climate change or at least slow it down often focuses on global warming, like the
+[Paris climate agreement](https://unfccc.int/process-and-meetings/the-paris-agreement),
+which legally binds the 196 parties “to limit the temperature increase to 1.5 °C above pre-industrial levels”.
 
-### Exporting a Jupyter Notebook
-Jupyter Notebooks can be exported using `nbconvert` (`pip install nbconvert`). For example, to export the example notebook to html: `jupyter nbconvert --to html examples/final-report-example.ipynb --embed-images --output final-report.html`
+Among various other contributors to global warming, burning fossil fuels for energy consumption stands out as
+a primary factor to this day.
+When burning fossil fuels, substantial amounts of greenhouse gases are released into the atmosphere,
+which increase the so-called greenhouse effect, in turn accelerating global warming and climate change.
+Facing the amount of greenhouse gases produced by the energy sector, many countries — including countries of
+the European Union (EU) — intensified their efforts to transition towards more sustainable energy sources.
 
+This report aims to explore the aforementioned relationship between energy consumption and net greenhouse gas
+emissions across countries of the EU, in order to show how they are interconnected.
+Furthermore, this report is set to discover how this connection is influenced by the share of renewable energy sources
+in the energy pool of a country. This might help to indicate, how effective the adoption of renewable energy sources is
+in fighting climate change.
 
-## Exercises
-During the semester you will need to complete exercises using [Jayvee](https://github.com/jvalue/jayvee). You **must** place your submission in the `exercises` folder in your repository and name them according to their number from one to five: `exercise<number from 1-5>.jv`.
+The resulting core questions are:
+1. How does the amount of energy consumed influence the net greenhouse gas emissions of European countries?
+2. , And how is this influenced by the share of renewables in total energy?
 
-In regular intervalls, exercises will be given as homework to complete during the semester. Details and deadlines will be discussed in the lecture, also see the [course schedule](https://made.uni1.de/). At the end of the semester, you will therefore have the following files in your repository:
+## Description
+This project is aimed at answering the two aforementioned questions with open data from the European data portal
+[Eurostat](https://ec.europa.eu/eurostat).
+The datasets used include data about net greenhouse gas emissions, primary energy consumption and the share of
+renewable energy sources of European countries.
 
-1. `./exercises/exercise1.jv`
-2. `./exercises/exercise2.jv`
-3. `./exercises/exercise3.jv`
-4. `./exercises/exercise4.jv`
-5. `./exercises/exercise5.jv`
-
-### Exercise Feedback
-We provide automated exercise feedback using a GitHub action (that is defined in `.github/workflows/exercise-feedback.yml`). 
-
-To view your exercise feedback, navigate to Actions -> Exercise Feedback in your repository.
-
-The exercise feedback is executed whenever you make a change in files in the `exercise` folder and push your local changes to the repository on GitHub. To see the feedback, open the latest GitHub Action run, open the `exercise-feedback` job and `Exercise Feedback` step. You should see command line output that contains output like this:
-
-```sh
-Found exercises/exercise1.jv, executing model...
-Found output file airports.sqlite, grading...
-Grading Exercise 1
-	Overall points 17 of 17
-	---
-	By category:
-		Shape: 4 of 4
-		Types: 13 of 13
-```
+- The aim of the project is documented in the [project plan](project/project-plan.md)
+- The used data from Eurostat is discussed in the [data report](project/data-report.pdf)
+- The data is analyzed, and the questions get answered in the final [analysis report](project/analysis-report.pdf)
